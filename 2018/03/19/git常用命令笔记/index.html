@@ -75,7 +75,7 @@
 
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="git," />
 
 
 
@@ -88,13 +88,18 @@
 
 
 
-<meta property="og:type" content="website">
-<meta property="og:title" content="Lycon&#39;s Blog">
-<meta property="og:url" content="http://yoursite.com/index.html">
+<meta name="description" content="git是Linus当初为了管理linux内核代码而编写的一个分布式版本控制系统。版本控制系统通俗点就是假设你的一个源码根目录现在被git控制了，那么你的所有源码版本（什么V1.00，V2.00，包括正在debug的版本，临时版本，发布版本）都在一个目录下面了，git可以轻松地切换版本，比较版本之间的差异，以及将源码给git服务器托管（比如无人不知的github）,又或者可以利用git的代码合并功能">
+<meta name="keywords" content="git">
+<meta property="og:type" content="article">
+<meta property="og:title" content="git常用命令笔记">
+<meta property="og:url" content="http://yoursite.com/2018/03/19/git常用命令笔记/index.html">
 <meta property="og:site_name" content="Lycon&#39;s Blog">
+<meta property="og:description" content="git是Linus当初为了管理linux内核代码而编写的一个分布式版本控制系统。版本控制系统通俗点就是假设你的一个源码根目录现在被git控制了，那么你的所有源码版本（什么V1.00，V2.00，包括正在debug的版本，临时版本，发布版本）都在一个目录下面了，git可以轻松地切换版本，比较版本之间的差异，以及将源码给git服务器托管（比如无人不知的github）,又或者可以利用git的代码合并功能">
 <meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-03-19T10:57:13.361Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Lycon&#39;s Blog">
+<meta name="twitter:title" content="git常用命令笔记">
+<meta name="twitter:description" content="git是Linus当初为了管理linux内核代码而编写的一个分布式版本控制系统。版本控制系统通俗点就是假设你的一个源码根目录现在被git控制了，那么你的所有源码版本（什么V1.00，V2.00，包括正在debug的版本，临时版本，发布版本）都在一个目录下面了，git可以轻松地切换版本，比较版本之间的差异，以及将源码给git服务器托管（比如无人不知的github）,又或者可以利用git的代码合并功能">
 
 
 
@@ -124,13 +129,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/"/>
+  <link rel="canonical" href="http://yoursite.com/2018/03/19/git常用命令笔记/"/>
 
 
 
 
 
-  <title>Lycon's Blog</title>
+  <title>git常用命令笔记 | Lycon's Blog</title>
   
 
 
@@ -149,8 +154,7 @@
     
   
 
-  <div class="container sidebar-position-left 
-  page-home">
+  <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 
 <!--<a href="https://github.com/lk361115629"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_red_aa0000.png" alt="Fork me on GitHub"></a>-->
@@ -246,9 +250,9 @@
         <div class="content-wrap">
           <div id="content" class="content">
             
-  <section id="posts" class="posts-expand">
+
+  <div id="posts" class="posts-expand">
     
-      
 
   
 
@@ -278,9 +282,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/03/19/git常用命令笔记/" itemprop="url">git常用命令笔记</a></h1>
+          <h1 class="post-title" itemprop="name headline">git常用命令笔记</h1>
         
 
         <div class="post-meta">
@@ -361,16 +363,45 @@
       
 
       
-        
-          <p><a href="https://git-scm.com/" target="_blank" rel="noopener">git</a>是<a href="https://en.wikipedia.org/wiki/Linus_Torvalds" target="_blank" rel="noopener">Linus</a>当初为了管理linux内核代码而编写的一个<strong>分布式版本控制系统</strong>。版本控制系统通俗点就是假设你的一个源码根目录现在被<a href="https://git-scm.com/" target="_blank" rel="noopener">git</a>控制了，那么你的所有源码版本（什么V1.00，V2.00，包括正在debug的版本，临时版本，发布版本）都在一个目录下面了，<a href="https://git-scm.com/" target="_blank" rel="noopener">git</a>可以轻松地<strong>切换版本</strong>，<strong>比较版本</strong>之间的差异，以及将源码给<a href="https://git-scm.com/" target="_blank" rel="noopener">git</a>服务器<strong>托管</strong>（比如无人不知的<a href="github.com">github</a>）,又或者可以利用<a href="https://git-scm.com/" target="_blank" rel="noopener">git</a>的<strong>代码合并</strong>功能进行多人协作。妈妈再也不用担心你为管理代码而烦恼了。<br>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2018/03/19/git常用命令笔记/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
+        <p><a href="https://git-scm.com/" target="_blank" rel="noopener">git</a>是<a href="https://en.wikipedia.org/wiki/Linus_Torvalds" target="_blank" rel="noopener">Linus</a>当初为了管理linux内核代码而编写的一个<strong>分布式版本控制系统</strong>。版本控制系统通俗点就是假设你的一个源码根目录现在被<a href="https://git-scm.com/" target="_blank" rel="noopener">git</a>控制了，那么你的所有源码版本（什么V1.00，V2.00，包括正在debug的版本，临时版本，发布版本）都在一个目录下面了，<a href="https://git-scm.com/" target="_blank" rel="noopener">git</a>可以轻松地<strong>切换版本</strong>，<strong>比较版本</strong>之间的差异，以及将源码给<a href="https://git-scm.com/" target="_blank" rel="noopener">git</a>服务器<strong>托管</strong>（比如无人不知的<a href="github.com">github</a>）,又或者可以利用<a href="https://git-scm.com/" target="_blank" rel="noopener">git</a>的<strong>代码合并</strong>功能进行多人协作。妈妈再也不用担心你为管理代码而烦恼了。<br><a id="more"></a></p>
+<blockquote>
+<p>这里只是做一些常用命令的笔记，如果要系统性地学习<a href="https://git-scm.com/" target="_blank" rel="noopener">git</a>可以参考<a href="https://www.liaoxuefeng.com/wiki/0013739516305929606dd18361248578c67b8067c8c017b000" target="_blank" rel="noopener">廖雪峰的git教程</a>。</p>
+</blockquote>
+<h2 id="安装git"><a href="#安装git" class="headerlink" title="安装git"></a>安装git</h2><ul>
+<li>如果使用windows，到<a href="https://git-scm.com/download/win" target="_blank" rel="noopener">git官网</a>下载windows版本的git；</li>
+<li>如果使用linux，安装git没有问题。最好是安装最新版的git：<a href="https://github.com/git/git" target="_blank" rel="noopener">https://github.com/git/git</a><br>下载源码编译安装git。</li>
+</ul>
+<h2 id="配置用户"><a href="#配置用户" class="headerlink" title="配置用户"></a>配置用户</h2><p>要先配置用户信息才能正常使用：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ git config --global user.name &apos;你的靓名&apos;</span><br><span class="line">$ git config --global user.email &apos;你的邮箱&apos;</span><br></pre></td></tr></table></figure></p>
+<h2 id="配置别名"><a href="#配置别名" class="headerlink" title="配置别名"></a>配置别名</h2><p>磨刀不误砍柴工，先不急着使用git，把一些难敲的命令配置一下别名，可以用别名代替复杂命令。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ git config --global alias.st status</span><br><span class="line">$ git config --global alias.co checkout</span><br><span class="line">$ git config --global alias.lg &quot;log --graph --pretty=oneline --abbrev-commit&quot;</span><br></pre></td></tr></table></figure></p>
+<h2 id="创建版本库"><a href="#创建版本库" class="headerlink" title="创建版本库"></a>创建版本库</h2><p>可以在非空目录下（比如源码根目录）创建git版本库：</p>
+<blockquote>
+<p>以下命令都需要在源码根目录下执行。</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git init</span><br></pre></td></tr></table></figure>
+<h2 id="查看git状态"><a href="#查看git状态" class="headerlink" title="查看git状态"></a>查看git状态</h2><p>查看git状态，有哪些文件已经发生了修改，有哪些文件已经被加入暂存区（被加入暂存区的文件才能提交）：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git st</span><br></pre></td></tr></table></figure></p>
+<h2 id="将文件加入暂存区"><a href="#将文件加入暂存区" class="headerlink" title="将文件加入暂存区"></a>将文件加入暂存区</h2><p>已经发生修改的文件（包括新增的文件和删除的文件），可以将其加入暂存区。一般就直接把整个目录加入暂存区就行了。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git add .</span><br></pre></td></tr></table></figure></p>
+<h2 id="提交版本"><a href="#提交版本" class="headerlink" title="提交版本"></a>提交版本</h2><p>将修改加入暂存区后，可以将其提交，这样就产生了一个版本：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git commit -m &apos;版本说明&apos;</span><br></pre></td></tr></table></figure></p>
+<p>版本说明一定要认真写，不然以后就不知道哪个是哪个了，还是很乱。</p>
+<h2 id="查看版本历史"><a href="#查看版本历史" class="headerlink" title="查看版本历史"></a>查看版本历史</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">$ git lg</span><br><span class="line">* 22330cc (HEAD -&gt; my-hexo-theme, origin/my-hexo-theme, origin/HEAD) add archives</span><br><span class="line">* c44db62 add some effects</span><br><span class="line">* bdca153 fix href stype</span><br><span class="line">* bebd9e3 sth. not important</span><br><span class="line">* a2ab1ab sth. not important</span><br></pre></td></tr></table></figure>
+<p><code>HEAD</code>指针指向当前工作区的版本，<code>HEAD -&gt; my-hexo-theme</code>就表示当前工作区版本为<code>my-hexo-theme</code>，这个版本的分支名为<code>my-hexo-theme</code>，版本id为<code>22330cc</code>,后面的<code>add archives</code>就是当初提交时填写的<code>版本说明</code>。</p>
+<h2 id="比较版本"><a href="#比较版本" class="headerlink" title="比较版本"></a>比较版本</h2><p>可以通过命令轻松的比较两个版本之间的差异：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git diff 较老版本 较新版本</span><br></pre></td></tr></table></figure></p>
+<p>“较老/较新版本”可以填：</p>
+<ul>
+<li>分支名</li>
+<li>版本id</li>
+<li>HEAD^，HEAD^^等等(几个<code>^</code>就是HEAD回退几个版本)<br>也可以直接简写<code>git diff</code>也就是<code>git diff HEAD 工作区</code>，就是比较当前修改和最近提交的版本。</li>
+</ul>
+<h2 id="版本切换"><a href="#版本切换" class="headerlink" title="版本切换"></a>版本切换</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git reset --hard 版本</span><br></pre></td></tr></table></figure>
+<p>同样，“版本”可以填：</p>
+<ul>
+<li>分支名</li>
+<li>版本id</li>
+<li>HEAD^，HEAD^^等等</li>
+</ul>
+<blockquote>
+<p>还没写完。。。改天再写，再见</p>
+</blockquote>
+
       
     </div>
     
@@ -381,6 +412,12 @@
 
 	<div>
 	  
+		<div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">-------------本文结束<i class="fa fa-paw"></i>感谢您的阅读-------------</div>
+    
+</div>
+	  
 	</div>
 	
     
@@ -389,332 +426,36 @@
 
     <footer class="post-footer">
       
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/03/09/使用Hexo-Git构建Github-Blog/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Lycon's Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/03/09/使用Hexo-Git构建Github-Blog/" itemprop="url">使用Hexo+Git构建Github-Blog</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-03-09T20:29:32+08:00">
-                2018-03-09
-              </time>
-            
-
-            
-
-            
-          </span>
-
+        <div class="post-tags">
           
-
+            <a href="/tags/git/" rel="tag"><i class="fa fa-tag"></i> git</a>
           
-            
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  967
-                </span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
-                
-                <span title="阅读时长">
-                  4
-                </span>
-              
-            </div>
-          
-
-          
-
         </div>
-      </header>
-    
+      
 
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
+      
       
       
 
       
-        
-          <p><a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>是一个用于构建Blog的web框架，使用<a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>可以方便地搭建自己的个人博客（并且可以使用Github作为服务器），搭建完成后只要编辑<a href="http://www.markdown.cn/" target="_blank" rel="noopener">markdown</a>文件就可以发布博客了。本站就是基于<a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>搭建的——<a href="https://lk361115629.github.io/" target="_blank" rel="noopener">https://lk361115629.github.io/</a></p>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2018/03/09/使用Hexo-Git构建Github-Blog/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/03/09/使用Hexo-Git构建Github-Blog/" rel="next" title="使用Hexo+Git构建Github-Blog">
+                <i class="fa fa-chevron-left"></i> 使用Hexo+Git构建Github-Blog
+              </a>
+            
           </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
 
-    
+          <span class="post-nav-divider"></span>
 
-	<div>
-	  
-	</div>
-	
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/1970/01/01/hello-world/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Lycon's Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/1970/01/01/hello-world/" itemprop="url">Hello World</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
+          <div class="post-nav-prev post-nav-item">
             
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="1970-01-01T00:00:00+08:00">
-                1970-01-01
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  78
-                </span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
-                
-                <span title="阅读时长">
-                  1
-                </span>
-              
-            </div>
-          
-
-          
-
+          </div>
         </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
       
 
       
-        
-          <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/1970/01/01/hello-world/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-	<div>
-	  
-	</div>
-	
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
       
     </footer>
   </div>
@@ -724,10 +465,37 @@
   </article>
 
 
-    
-  </section>
 
-  
+    <div class="post-spread">
+      
+        <!-- JiaThis Button BEGIN -->
+<div class="jiathis_style">
+<span class="jiathis_txt">分享到：</span>
+<a class="jiathis_button_fav">收藏夹</a>
+<a class="jiathis_button_copy">复制网址</a>
+<a class="jiathis_button_email">邮件</a>
+<a class="jiathis_button_weixin">微信</a>
+<a class="jiathis_button_qzone">QQ空间</a>
+<a class="jiathis_button_tqq">腾讯微博</a>
+<a class="jiathis_button_douban">豆瓣</a>
+<a class="jiathis_button_share">一键分享</a>
+
+<a href="http://www.jiathis.com/share?uid=2140465" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank">更多</a>
+<a class="jiathis_counter_style"></a>
+</div>
+<script type="text/javascript" >
+var jiathis_config={
+  data_track_clickback:true,
+  summary:"",
+  shortUrl:false,
+  hideMore:false
+}
+</script>
+<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=" charset="utf-8"></script>
+<!-- JiaThis Button END -->
+      
+    </div>
+  </div>
 
 
           </div>
@@ -735,6 +503,10 @@
 
 
           
+
+  
+
+
 
         </div>
         
@@ -755,8 +527,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -866,6 +647,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#安装git"><span class="nav-number">1.</span> <span class="nav-text">安装git</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#配置用户"><span class="nav-number">2.</span> <span class="nav-text">配置用户</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#配置别名"><span class="nav-number">3.</span> <span class="nav-text">配置别名</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#创建版本库"><span class="nav-number">4.</span> <span class="nav-text">创建版本库</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#查看git状态"><span class="nav-number">5.</span> <span class="nav-text">查看git状态</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#将文件加入暂存区"><span class="nav-number">6.</span> <span class="nav-text">将文件加入暂存区</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#提交版本"><span class="nav-number">7.</span> <span class="nav-text">提交版本</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#查看版本历史"><span class="nav-number">8.</span> <span class="nav-text">查看版本历史</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#比较版本"><span class="nav-number">9.</span> <span class="nav-text">比较版本</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#版本切换"><span class="nav-number">10.</span> <span class="nav-text">版本切换</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
@@ -1019,6 +816,10 @@
 
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
 
   
 
