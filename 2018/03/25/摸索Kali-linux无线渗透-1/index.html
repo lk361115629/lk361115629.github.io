@@ -1,0 +1,905 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-corner-indicator.min.css?v=1.0.2" rel="stylesheet">
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="kali,渗透,wifi," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="Lycon's Blog" type="application/atom+xml" />
+
+
+
+
+
+
+<meta name="description" content="记录一下摸索使用kali进行无线网络渗透的过程，掌握常用的无线渗透手段可以评估一个无线网络(wifi)的安全性。作为一个kali小白，这里只是记录一下学习过程，渗透高手可以点击右上角的红叉离开了，没用过linux的妹子可以先了解一下linux的使用~">
+<meta name="keywords" content="kali,渗透,wifi">
+<meta property="og:type" content="article">
+<meta property="og:title" content="摸索Kali-linux无线渗透(1)">
+<meta property="og:url" content="http://yoursite.com/2018/03/25/摸索Kali-linux无线渗透-1/index.html">
+<meta property="og:site_name" content="Lycon&#39;s Blog">
+<meta property="og:description" content="记录一下摸索使用kali进行无线网络渗透的过程，掌握常用的无线渗透手段可以评估一个无线网络(wifi)的安全性。作为一个kali小白，这里只是记录一下学习过程，渗透高手可以点击右上角的红叉离开了，没用过linux的妹子可以先了解一下linux的使用~">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-03-25T13:55:59.834Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="摸索Kali-linux无线渗透(1)">
+<meta name="twitter:description" content="记录一下摸索使用kali进行无线网络渗透的过程，掌握常用的无线渗透手段可以评估一个无线网络(wifi)的安全性。作为一个kali小白，这里只是记录一下学习过程，渗透高手可以点击右上角的红叉离开了，没用过linux的妹子可以先了解一下linux的使用~">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/03/25/摸索Kali-linux无线渗透-1/"/>
+
+
+
+
+
+  <title>摸索Kali-linux无线渗透(1) | Lycon's Blog</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+<!--<a href="https://github.com/lk361115629"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_red_aa0000.png" alt="Fork me on GitHub"></a>-->
+<a href="https://github.com/lk361115629"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_orange_ff7600.png" alt="Fork me on GitHub"></a>
+	
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Lycon's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">码农又在讨论种地用什么农具</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/03/25/摸索Kali-linux无线渗透-1/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Lycon's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">摸索Kali-linux无线渗透(1)</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-03-25T20:30:20+08:00">
+                2018-03-25
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  1,620
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  8
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>记录一下摸索使用<a href="https://www.kali.org/" target="_blank" rel="noopener">kali</a>进行无线网络渗透的过程，掌握常用的无线渗透手段可以评估一个无线网络(wifi)的安全性。作为一个<a href="https://www.kali.org/" target="_blank" rel="noopener">kali</a>小白，这里只是记录一下学习过程，渗透高手可以点击右上角的红叉离开了，没用过linux的妹子可以先了解一下linux的使用~</p>
+<a id="more"></a>
+<h2 id="安装kali"><a href="#安装kali" class="headerlink" title="安装kali"></a>安装kali</h2><ul>
+<li>在<a href="https://www.kali.org/" target="_blank" rel="noopener">kali官网</a>下载kali安装包</li>
+<li>然后参考<a href="https://jingyan.baidu.com/article/d5c4b52b9bad54da560dc5ab.html" target="_blank" rel="noopener">如何在物理机上使用U盘安装Kali系统</a>，在你的笔记本（台式机的话kali有可能没有你的usb无线网卡驱动）上安装kali。或者你有其他方法安装kali，都可以。</li>
+</ul>
+<h2 id="查看网卡参数"><a href="#查看网卡参数" class="headerlink" title="查看网卡参数"></a>查看网卡参数</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">$ ifconfig</span><br><span class="line">eth0: flags=4099&lt;UP,BROADCAST,MULTICAST&gt;  mtu 1500</span><br><span class="line">        ether 10:bf:48:02:1d:e0  txqueuelen 1000  (Ethernet)</span><br><span class="line">        RX packets 0  bytes 0 (0.0 B)</span><br><span class="line">        RX errors 0  dropped 0  overruns 0  frame 0</span><br><span class="line">        TX packets 0  bytes 0 (0.0 B)</span><br><span class="line">        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0</span><br><span class="line"></span><br><span class="line">lo: flags=73&lt;UP,LOOPBACK,RUNNING&gt;  mtu 65536</span><br><span class="line">        inet 127.0.0.1  netmask 255.0.0.0</span><br><span class="line">        inet6 ::1  prefixlen 128  scopeid 0x10&lt;host&gt;</span><br><span class="line">        loop  txqueuelen 1000  (Local Loopback)</span><br><span class="line">        RX packets 980  bytes 78876 (77.0 KiB)</span><br><span class="line">        RX errors 0  dropped 0  overruns 0  frame 0</span><br><span class="line">        TX packets 980  bytes 78876 (77.0 KiB)</span><br><span class="line">        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0</span><br><span class="line"></span><br><span class="line">wlan0: flags=4163&lt;UP,BROADCAST,RUNNING,MULTICAST&gt;  mtu 1500</span><br><span class="line">        inet 192.168.1.208  netmask 255.255.255.0  broadcast 192.168.1.255</span><br><span class="line">        inet6 fe80::999:4462:44fd:1e99  prefixlen 64  scopeid 0x20&lt;link&gt;</span><br><span class="line">        ether c0:18:85:1f:0b:0d  txqueuelen 1000  (Ethernet)</span><br><span class="line">        RX packets 1588  bytes 433275 (423.1 KiB)</span><br><span class="line">        RX errors 0  dropped 0  overruns 0  frame 0</span><br><span class="line">        TX packets 1018  bytes 93996 (91.7 KiB)</span><br><span class="line">        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0</span><br></pre></td></tr></table></figure>
+<p>下面的<code>wlan0</code>或者以<code>wlan</code>打头的网卡就是你的无线网卡了，这里可以看到无线网卡的ip地址，mac地址等等参数。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">$ iwconfig </span><br><span class="line">wlan0     IEEE 802.11  ESSID:&quot;Lycon_2.4G&quot;  </span><br><span class="line">          Mode:Managed  Frequency:2.412 GHz  Access Point: 88:25:93:58:B4:E9   </span><br><span class="line">          Bit Rate=108 Mb/s   Tx-Power=15 dBm   </span><br><span class="line">          Retry short limit:7   RTS thr:off   Fragment thr:off</span><br><span class="line">          Encryption key:off</span><br><span class="line">          Power Management:off</span><br><span class="line">          Link Quality=67/70  Signal level=-43 dBm  </span><br><span class="line">          Rx invalid nwid:0  Rx invalid crypt:0  Rx invalid frag:0</span><br><span class="line">          Tx excessive retries:1  Invalid misc:798   Missed beacon:0</span><br></pre></td></tr></table></figure></p>
+<p>使用<code>iwconfig</code>可以看到无线网卡当前的wlan参数:</p>
+<ul>
+<li><code>ESSID</code>为无线网卡当前连接的wifi名称</li>
+<li><code>Frequency</code>为所在的信道的频率</li>
+<li><code>Access Point</code>为AP的mac地址</li>
+<li>还有其他的一些参数等等</li>
+</ul>
+<h2 id="扫描wifi信号"><a href="#扫描wifi信号" class="headerlink" title="扫描wifi信号"></a>扫描wifi信号</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">$ iwlist wlan0 scan</span><br><span class="line">wlan0     Scan completed :</span><br><span class="line">          Cell 01 - Address: 88:25:93:58:B4:E9</span><br><span class="line">                    Channel:1</span><br><span class="line">                    Frequency:2.412 GHz (Channel 1)</span><br><span class="line">                    Quality=61/70  Signal level=-49 dBm  </span><br><span class="line">                    Encryption key:on</span><br><span class="line">                    ESSID:&quot;Lycon_2.4G&quot;</span><br><span class="line">                    Bit Rates:1 Mb/s; 2 Mb/s; 5.5 Mb/s; 11 Mb/s; 6 Mb/s</span><br><span class="line">                              9 Mb/s; 12 Mb/s; 18 Mb/s</span><br><span class="line">                    Bit Rates:24 Mb/s; 36 Mb/s; 48 Mb/s; 54 Mb/s</span><br><span class="line">                    Mode:Master</span><br><span class="line">                    Extra:tsf=00000017b6a8c44f</span><br><span class="line">                    Extra: Last beacon: 12ms ago</span><br><span class="line">                    ......(other useless parameters)</span><br><span class="line">          Cell 02 - Address: xxx</span><br><span class="line">          Cell 03 - Address: xxx</span><br></pre></td></tr></table></figure>
+<p>这个命令展示你的无限网卡能搜索到当前范围的wifi信号以及各个信号的参数，包括</p>
+<ul>
+<li><code>Address</code>为AP的mac地址</li>
+<li><code>Channel</code>为AP所在的信道，一个信道对应一个2.4G周围的频率(Frequency)，比如信道1的频率是2.412 GHz。我们只需要关心<code>Channel</code>即可。</li>
+<li><code>Signal level</code>为信号强度，绝对值越小，信号越强。</li>
+<li><code>Encryption key</code>表示wifi是否加密。</li>
+<li><code>ESSID</code>是wifi的名称，无需解释。</li>
+</ul>
+<h2 id="设置监听模式"><a href="#设置监听模式" class="headerlink" title="设置监听模式"></a>设置监听模式</h2><ul>
+<li>因为wifi的所有封包，包括管理帧，数据帧都是在空气中传播的，所以只要将任意设备的无线网卡设置到想要嗅探的信道上就能嗅探这个信道的数据帧了；</li>
+<li>我们需要把无线网卡设置为监听模式，并将其设置到合适的信道，这样才能捕获这个信道内的封包。</li>
+</ul>
+<p>使用下面的命令将无线网卡设置为监听模式：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ airmon-ng start wlan0</span><br></pre></td></tr></table></figure></p>
+<p>使用<code>ifconfig</code>查看新增的网卡：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">$ ifconfig</span><br><span class="line">eth0: flags=4099&lt;UP,BROADCAST,MULTICAST&gt;  mtu 1500</span><br><span class="line">        ether 10:bf:48:02:1d:e0  txqueuelen 1000  (Ethernet)</span><br><span class="line">        RX packets 0  bytes 0 (0.0 B)</span><br><span class="line">        RX errors 0  dropped 0  overruns 0  frame 0</span><br><span class="line">        TX packets 0  bytes 0 (0.0 B)</span><br><span class="line">        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0</span><br><span class="line"></span><br><span class="line">lo: flags=73&lt;UP,LOOPBACK,RUNNING&gt;  mtu 65536</span><br><span class="line">        inet 127.0.0.1  netmask 255.0.0.0</span><br><span class="line">        inet6 ::1  prefixlen 128  scopeid 0x10&lt;host&gt;</span><br><span class="line">        loop  txqueuelen 1000  (Local Loopback)</span><br><span class="line">        RX packets 988  bytes 79272 (77.4 KiB)</span><br><span class="line">        RX errors 0  dropped 0  overruns 0  frame 0</span><br><span class="line">        TX packets 988  bytes 79272 (77.4 KiB)</span><br><span class="line">        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0</span><br><span class="line"></span><br><span class="line">wlan0mon: flags=4163&lt;UP,BROADCAST,RUNNING,MULTICAST&gt;  mtu 1500</span><br><span class="line">        unspec C0-18-85-1F-0B-0D-30-3A-00-00-00-00-00-00-00-00  txqueuelen 1000  (UNSPEC)</span><br><span class="line">        RX packets 12117  bytes 2184763 (2.0 MiB)</span><br><span class="line">        RX errors 0  dropped 12117  overruns 0  frame 0</span><br><span class="line">        TX packets 0  bytes 0 (0.0 B)</span><br><span class="line">        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0</span><br></pre></td></tr></table></figure></p>
+<p><code>wlan0mon</code>便是新增的网卡了，带<code>mon</code>的网卡就表示监听(monitor)模式。<br>然后设置网卡的信道，比如信道11：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ iwconfig wlan0mon channel 11</span><br></pre></td></tr></table></figure></p>
+<h2 id="使用抓包工具抓包"><a href="#使用抓包工具抓包" class="headerlink" title="使用抓包工具抓包"></a>使用抓包工具抓包</h2><p>抓包工具，可视化的有<code>wireshark</code>：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ wireshark &amp;</span><br></pre></td></tr></table></figure></p>
+<p>命令行的是<code>tcpdump</code>：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ tcpdump -ni wlan0mon [过滤条件] [-w 要写入文件名]</span><br></pre></td></tr></table></figure></p>
+<p>常用的就是这样，具体的参数选项请查看<code>man tcpdump</code>。</p>
+<blockquote>
+<p><code>tcpdump</code>写入的文件最后可以由<code>wireshark</code>打开，所以用<code>tcpdump</code>抓包写入文件，然后用<code>wireshark</code>打开比较方便，当然使用<code>wireshark</code>直接保存文件也可以。</p>
+</blockquote>
+<h2 id="查看管理帧"><a href="#查看管理帧" class="headerlink" title="查看管理帧"></a>查看管理帧</h2><p>使用<code>iwlist wlan0mon scan</code>查看你的目标AP处于哪个信道，然后设置你的网卡到那个信道：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ iwconfig wlan0mon channel N</span><br></pre></td></tr></table></figure></p>
+<p>然后开启<code>wireshark</code>进行抓包：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ wireshark &amp;</span><br></pre></td></tr></table></figure></p>
+<ul>
+<li>设置过滤条件为<code>wlan.fc.type_subtype == 8</code>，可以查看你的目标AP发出的<code>beacon</code>帧，当然也有该信道其他AP发出的<code>beacon</code>帧。</li>
+<li>设置过滤条件为<code>wlan.addr == 你的手机的mac地址</code>，可以查看你的手机连接wifi的握手包以及你的手机发出的数据包等等。</li>
+<li>还有很多不同的过滤条件可以用来查看不同用途的封包，抓包工具是渗透利器。</li>
+</ul>
+<blockquote>
+<p>未加密的wifi传输的都是明文包，别人可以轻而易举地用抓包工具查看你的数据，加密的（也就是有密码的wifi）的wifi传输的封包从网络层开始就是加密了的，我们抓到的数据包只有链路层数据是没有加密的，因此仍然可以获得所有AP的mac地址以及连接到这些AP的客户端（比如手机）的mac地址。</p>
+</blockquote>
+<h2 id="睡了，改天继续。。。"><a href="#睡了，改天继续。。。" class="headerlink" title="睡了，改天继续。。。"></a>睡了，改天继续。。。</h2>
+      
+    </div>
+    
+    
+    
+
+    
+
+	<div>
+	  
+		<div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">-------------本文结束<i class="fa fa-paw"></i>感谢您的阅读-------------</div>
+    
+</div>
+	  
+	</div>
+	
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/kali/" rel="tag"><i class="fa fa-tag"></i> kali</a>
+          
+            <a href="/tags/渗透/" rel="tag"><i class="fa fa-tag"></i> 渗透</a>
+          
+            <a href="/tags/wifi/" rel="tag"><i class="fa fa-tag"></i> wifi</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/03/19/git常用命令笔记/" rel="next" title="git常用命令笔记">
+                <i class="fa fa-chevron-left"></i> git常用命令笔记
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <!-- JiaThis Button BEGIN -->
+<div class="jiathis_style">
+<span class="jiathis_txt">分享到：</span>
+<a class="jiathis_button_fav">收藏夹</a>
+<a class="jiathis_button_copy">复制网址</a>
+<a class="jiathis_button_email">邮件</a>
+<a class="jiathis_button_weixin">微信</a>
+<a class="jiathis_button_qzone">QQ空间</a>
+<a class="jiathis_button_tqq">腾讯微博</a>
+<a class="jiathis_button_douban">豆瓣</a>
+<a class="jiathis_button_share">一键分享</a>
+
+<a href="http://www.jiathis.com/share?uid=2140465" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank">更多</a>
+<a class="jiathis_counter_style"></a>
+</div>
+<script type="text/javascript" >
+var jiathis_config={
+  data_track_clickback:true,
+  summary:"",
+  shortUrl:false,
+  hideMore:false
+}
+</script>
+<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=" charset="utf-8"></script>
+<!-- JiaThis Button END -->
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/avatar.jpg"
+                alt="" />
+            
+              <p class="site-author-name" itemprop="name"></p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">4</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/lk361115629" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i></a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:lycon123@foxmail.com" target="_blank" title="邮箱">
+                      
+                        <i class="fa fa-fw fa-envelope"></i></a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://weibo.com/lycon361" target="_blank" title="微博">
+                      
+                        <i class="fa fa-fw fa-weibo"></i></a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                Links
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://jingyan.baidu.com/article/d5c4b52b9bad54da560dc5ab.html" title="Kali U盘安装" target="_blank">Kali U盘安装</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://www.gitbook.com/book/wizardforcel/kali-linux-wireless-pentest/details" title="Kali-linux无线渗透指南" target="_blank">Kali-linux无线渗透指南</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://www.zhihu.com/question/33566509" title="Kali教程" target="_blank">Kali教程</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://ife.baidu.com/" title="百度前端技术学院" target="_blank">百度前端技术学院</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://wf.uisdc.com/cn/" title="google前端开发基础" target="_blank">google前端开发基础</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#安装kali"><span class="nav-number">1.</span> <span class="nav-text">安装kali</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#查看网卡参数"><span class="nav-number">2.</span> <span class="nav-text">查看网卡参数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#扫描wifi信号"><span class="nav-number">3.</span> <span class="nav-text">扫描wifi信号</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#设置监听模式"><span class="nav-number">4.</span> <span class="nav-text">设置监听模式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#使用抓包工具抓包"><span class="nav-number">5.</span> <span class="nav-text">使用抓包工具抓包</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#查看管理帧"><span class="nav-number">6.</span> <span class="nav-text">查看管理帧</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#睡了，改天继续。。。"><span class="nav-number">7.</span> <span class="nav-text">睡了，改天继续。。。</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder"></span>
+
+  
+</div>
+
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+
+
+
+<div class="theme-info">
+  <div class="powered-by"></div>
+  <span class="post-count">博客全站共4.6k字</span>
+</div>
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  <!-- 页面点击小红心 -->
+  <!--<script type="text/javascript" src="/js/src/love.js"></script>-->
+</body>
+</html>
