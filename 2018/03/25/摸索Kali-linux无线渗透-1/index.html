@@ -96,7 +96,7 @@
 <meta property="og:site_name" content="Lycon&#39;s Blog">
 <meta property="og:description" content="记录一下摸索使用kali进行无线网络渗透的过程，掌握常用的无线渗透手段可以评估一个无线网络(wifi)的安全性。作为一个kali新手，这里只是简单记录一下学习过程，渗透高手可以一笑置之，没用过linux的大兄弟可以先了解一下linux的使用~">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-04-01T06:43:51.276Z">
+<meta property="og:updated_time" content="2018-04-01T06:51:01.718Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="摸索Kali-linux无线渗透(1)">
 <meta name="twitter:description" content="记录一下摸索使用kali进行无线网络渗透的过程，掌握常用的无线渗透手段可以评估一个无线网络(wifi)的安全性。作为一个kali新手，这里只是简单记录一下学习过程，渗透高手可以一笑置之，没用过linux的大兄弟可以先了解一下linux的使用~">
@@ -326,7 +326,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  4,648
+                  4,681
                 </span>
               
 
@@ -453,7 +453,7 @@
 </blockquote>
 <h3 id="使用airbase-ng伪造AP"><a href="#使用airbase-ng伪造AP" class="headerlink" title="使用airbase-ng伪造AP"></a>使用airbase-ng伪造AP</h3><p>使用<code>airmon-ng</code>命令开启无线网卡混杂模式后，使用<code>airodump-ng</code>观察你想要竞争的AP的<code>mac地址</code>和<code>ESSID</code>，以及它的<code>信道</code>。<br>然后使用<code>airbase-ng</code>创建AP：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ airbase-ng wlan0mon --essid &lt;网络名称&gt; [-a &lt;mac地址&gt;] [-c &lt;信道&gt;]</span><br></pre></td></tr></table></figure></p>
 <blockquote>
-<p>若不指定mac地址，将使用无线网卡的mac地址，若不指定信道，将自动选择信道。</p>
+<p>若不指定mac地址，将使用无线网卡的mac地址，若不指定信道，将自动选择信道。<br>一般情况要指定 <strong>essid、mac地址和信道均和原AP相同</strong>，这样受害者就无法区分两个AP了。</p>
 </blockquote>
 <p>另外，<code>airbase-ng</code>的<code>-W</code>、<code>-z</code>、<code>-Z</code>选项可以指定AP的加密模式，例如：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ airbase-ng wlan0mon --essid &lt;ESSID&gt; -a &lt;mac地址&gt; -W 1  #for WEP</span><br><span class="line">$ airbase-ng wlan0mon --essid &lt;ESSID&gt; -a &lt;mac地址&gt; -z 2  #for WPA</span><br><span class="line">$ airbase-ng wlan0mon --essid &lt;ESSID&gt; -a &lt;mac地址&gt; -Z 2  #for WPA2</span><br></pre></td></tr></table></figure></p>
 <p>但是这样客户端就无法直接连接到你的AP了，并且密码提交时也无法提取密码，因此意义不大。</p>
@@ -783,7 +783,7 @@ var jiathis_config={
 
 <div class="theme-info">
   <div class="powered-by"></div>
-  <span class="post-count">博客全站共7.6k字</span>
+  <span class="post-count">博客全站共7.7k字</span>
 </div>
         
 
