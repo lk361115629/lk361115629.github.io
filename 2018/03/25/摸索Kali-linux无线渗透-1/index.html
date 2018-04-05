@@ -96,7 +96,7 @@
 <meta property="og:site_name" content="Lycon&#39;s Blog">
 <meta property="og:description" content="记录一下摸索使用kali进行无线网络渗透的过程，掌握常用的无线渗透手段可以评估一个无线网络(wifi)的安全性。作为一个kali新手，这里只是简单记录一下学习过程，渗透高手可以一笑置之，没用过linux的大兄弟可以先了解一下linux的使用~">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-04-01T06:51:01.718Z">
+<meta property="og:updated_time" content="2018-04-05T04:32:57.373Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="摸索Kali-linux无线渗透(1)">
 <meta name="twitter:description" content="记录一下摸索使用kali进行无线网络渗透的过程，掌握常用的无线渗透手段可以评估一个无线网络(wifi)的安全性。作为一个kali新手，这里只是简单记录一下学习过程，渗透高手可以一笑置之，没用过linux的大兄弟可以先了解一下linux的使用~">
@@ -326,7 +326,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  4,681
+                  4,698
                 </span>
               
 
@@ -342,7 +342,7 @@
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
                 <span title="阅读时长">
-                  21
+                  22
                 </span>
               
             </div>
@@ -367,7 +367,7 @@
 <a id="more"></a>
 <h2 id="安装kali"><a href="#安装kali" class="headerlink" title="安装kali"></a>安装kali</h2><ul>
 <li>在<a href="https://www.kali.org/" target="_blank" rel="noopener">kali官网</a>下载kali安装包</li>
-<li>然后参考<a href="https://jingyan.baidu.com/article/d5c4b52b9bad54da560dc5ab.html" target="_blank" rel="noopener">如何在物理机上使用U盘安装Kali系统</a>，在你的笔记本（台式机的话kali有可能没有你的usb无线网卡驱动）上安装kali。或者你有其他方法安装kali，都可以。</li>
+<li>然后参考<a href="https://jingyan.baidu.com/article/d5c4b52b9bad54da560dc5ab.html" target="_blank" rel="noopener">如何在物理机上使用U盘安装Kali系统</a>（注意一下制作安装盘时选中<strong>格式化为fat32</strong>），在你的笔记本（台式机的话kali有可能没有你的usb无线网卡驱动）上安装kali。或者你有其他方法安装kali，都可以。</li>
 </ul>
 <h2 id="查看网卡参数"><a href="#查看网卡参数" class="headerlink" title="查看网卡参数"></a>查看网卡参数</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">$ ifconfig</span><br><span class="line">eth0: flags=4099&lt;UP,BROADCAST,MULTICAST&gt;  mtu 1500</span><br><span class="line">        ether 10:bf:48:02:1d:e0  txqueuelen 1000  (Ethernet)</span><br><span class="line">        RX packets 0  bytes 0 (0.0 B)</span><br><span class="line">        RX errors 0  dropped 0  overruns 0  frame 0</span><br><span class="line">        TX packets 0  bytes 0 (0.0 B)</span><br><span class="line">        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0</span><br><span class="line"></span><br><span class="line">lo: flags=73&lt;UP,LOOPBACK,RUNNING&gt;  mtu 65536</span><br><span class="line">        inet 127.0.0.1  netmask 255.0.0.0</span><br><span class="line">        inet6 ::1  prefixlen 128  scopeid 0x10&lt;host&gt;</span><br><span class="line">        loop  txqueuelen 1000  (Local Loopback)</span><br><span class="line">        RX packets 980  bytes 78876 (77.0 KiB)</span><br><span class="line">        RX errors 0  dropped 0  overruns 0  frame 0</span><br><span class="line">        TX packets 980  bytes 78876 (77.0 KiB)</span><br><span class="line">        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0</span><br><span class="line"></span><br><span class="line">wlan0: flags=4163&lt;UP,BROADCAST,RUNNING,MULTICAST&gt;  mtu 1500</span><br><span class="line">        inet 192.168.1.208  netmask 255.255.255.0  broadcast 192.168.1.255</span><br><span class="line">        inet6 fe80::999:4462:44fd:1e99  prefixlen 64  scopeid 0x20&lt;link&gt;</span><br><span class="line">        ether c0:18:85:1f:0b:0d  txqueuelen 1000  (Ethernet)</span><br><span class="line">        RX packets 1588  bytes 433275 (423.1 KiB)</span><br><span class="line">        RX errors 0  dropped 0  overruns 0  frame 0</span><br><span class="line">        TX packets 1018  bytes 93996 (91.7 KiB)</span><br><span class="line">        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0</span><br></pre></td></tr></table></figure>
 <p>下面的<code>wlan0</code>或者以<code>wlan</code>打头的网卡就是你的无线网卡了，这里可以看到无线网卡的<code>ip地址</code>，<code>mac地址</code>等等参数。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">$ iwconfig </span><br><span class="line">wlan0     IEEE 802.11  ESSID:&quot;Lycon_2.4G&quot;  </span><br><span class="line">          Mode:Managed  Frequency:2.412 GHz  Access Point: 88:25:93:58:B4:E9   </span><br><span class="line">          Bit Rate=108 Mb/s   Tx-Power=15 dBm   </span><br><span class="line">          Retry short limit:7   RTS thr:off   Fragment thr:off</span><br><span class="line">          Encryption key:off</span><br><span class="line">          Power Management:off</span><br><span class="line">          Link Quality=67/70  Signal level=-43 dBm  </span><br><span class="line">          Rx invalid nwid:0  Rx invalid crypt:0  Rx invalid frag:0</span><br><span class="line">          Tx excessive retries:1  Invalid misc:798   Missed beacon:0</span><br></pre></td></tr></table></figure></p>
