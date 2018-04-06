@@ -96,7 +96,7 @@
 <meta property="og:site_name" content="Lycon&#39;s Blog">
 <meta property="og:description" content="记录一下摸索使用kali进行无线网络渗透的过程，掌握常用的无线渗透手段可以评估一个无线网络(wifi)的安全性。作为一个kali新手，这里只是简单记录一下学习过程，渗透高手可以一笑置之，没用过linux的大兄弟可以先了解一下linux的使用~">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-04-05T04:32:57.373Z">
+<meta property="og:updated_time" content="2018-04-06T09:59:14.886Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="摸索Kali-linux无线渗透(1)">
 <meta name="twitter:description" content="记录一下摸索使用kali进行无线网络渗透的过程，掌握常用的无线渗透手段可以评估一个无线网络(wifi)的安全性。作为一个kali新手，这里只是简单记录一下学习过程，渗透高手可以一笑置之，没用过linux的大兄弟可以先了解一下linux的使用~">
@@ -326,7 +326,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  4,698
+                  4,709
                 </span>
               
 
@@ -473,7 +473,7 @@
 </blockquote>
 <ul>
 <li>这样就完成了桥接，可以理解为把笔记本配置成了一台 <strong>无线交换机</strong>（应该和电脑上用热点软件开启的热点不同，因为没有产生新的网段，无线路由器可以当作无线交换机来使用嘛呵呵，欢迎指正），<code>at0</code>就是AP网卡，<code>eth0</code>就是能上网的以太网网卡，这两个网卡桥接在了一起实现了数据交换。理论上连接到你的AP的客户端就可以通过<code>eth0</code>上网了；</li>
-<li>好了，由于所有流量都从无线端(at0)转发到以太网(eth0)，我们可以在笔记本上开启<code>wireshark</code>，随心所欲地嗅探受害者的封包（在 <strong>at0</strong> 接口上监听）了，而且还是未加密的数据，想想就有点小激动呢。前提是你的主机发出的伪装AP信号够强，性能够好，能够承载受害者的所有流量。</li>
+<li>好了，由于所有流量都从无线端(at0)转发到以太网(eth0)，我们可以在笔记本上开启<code>wireshark</code>，随心所欲地嗅探受害者的封包（在 <strong>at0</strong> 接口上监听）了，而且还是未加密的数据，想想就有点小激动呢。前提是你的主机发出的伪装AP信号够强，性能够好，能够承载受害者的所有流量。<strong>这是典型的中间人(MITM)攻击。</strong></li>
 <li>发送密码的请求可以用过滤条件<code>http.request.method==&quot;POST&quot;</code>抓获，当然这极大可能是加密的，所以不可能这么简单地拿到密码。</li>
 </ul>
 <h2 id="未完待续…"><a href="#未完待续…" class="headerlink" title="未完待续…"></a>未完待续…</h2>
