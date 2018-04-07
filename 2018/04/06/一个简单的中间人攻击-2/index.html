@@ -100,7 +100,7 @@
 <meta property="og:image" content="http://yoursite.com/2018/04/06/一个简单的中间人攻击-2/error.png">
 <meta property="og:image" content="http://yoursite.com/2018/04/06/一个简单的中间人攻击-2/taobao-http.png">
 <meta property="og:image" content="http://yoursite.com/2018/04/06/一个简单的中间人攻击-2/woman.png">
-<meta property="og:updated_time" content="2018-04-07T07:30:02.479Z">
+<meta property="og:updated_time" content="2018-04-07T09:43:24.459Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="一个简单的中间人攻击(2)">
 <meta name="twitter:description" content="记录一个最简单的局域网中间人攻击方法，在kali上实现。">
@@ -331,7 +331,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  1,331
+                  1,454
                 </span>
               
 
@@ -406,6 +406,9 @@
 </blockquote>
 <h3 id="启用数据转发"><a href="#启用数据转发" class="headerlink" title="启用数据转发"></a>启用数据转发</h3><p>执行下面的命令，将<code>80端口</code>(http)的数据转发到<code>10000端口</code>(进行SSL剥离)：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ iptables -t nat -A PREROUTING -p tcp --destination-port 80 -j REDIRECT --to-ports 10000</span><br></pre></td></tr></table></figure></p>
 <h3 id="启用SSL剥离"><a href="#启用SSL剥离" class="headerlink" title="启用SSL剥离"></a>启用SSL剥离</h3><p>执行下面的命令：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sslstrip -l 10000</span><br></pre></td></tr></table></figure></p>
+<blockquote>
+<p>这个命令的作用就是攻击者接收到受害者的<code>http</code>封包后进行<code>https</code>封装发送给网站，接收到网站的<code>https</code>封包后解密发送给受害者，真正在上网的是攻击者，它是受害者的<code>https代理</code>。如果受害者访问的是<code>https://</code>的话，浏览器会提示证书错误，因为<code>数字证书</code>上的<code>数字签名</code>是无效的，我们需要再想办法伪造一个<code>数字证书</code>。</p>
+</blockquote>
 <p>好了，到此为止<code>ssl剥离</code>已经启用了，接下来可以在目标机器上进行测试了。</p>
 <h3 id="使用浏览器访问网站"><a href="#使用浏览器访问网站" class="headerlink" title="使用浏览器访问网站"></a>使用浏览器访问网站</h3><p>打开谷歌的<code>Chrome</code>浏览器，访问<code>www.taobao.com</code>：<br><img src="error.png" alt=""></p>
 <p>机智的<code>Chrome</code>可以发现攻击者，并且不允许你进入，这条路走不通，当然<code>Firefox</code>肯定也是这个结果；<br>换个好一点的浏览器吧，我在网上下载了大家都喜欢用的<code>360安全浏览器</code>，当然是最新版，用它进行访问：</p>
@@ -695,7 +698,7 @@
 
 <div class="theme-info">
   <div class="powered-by"></div>
-  <span class="post-count">博客全站共9.0k字</span>
+  <span class="post-count">博客全站共9.1k字</span>
 </div>
         
 
