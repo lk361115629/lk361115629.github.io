@@ -1,0 +1,887 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-corner-indicator.min.css?v=1.0.2" rel="stylesheet">
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="git," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="Lycon's Blog" type="application/atom+xml" />
+
+
+
+
+
+
+<meta name="description" content="git是Linus为了管理linux内核代码而编写的一个超强的分布式版本控制系统，一般以命令行的方式使用。若你是代码工作者，使用git可以大大提高你的工作效率和机动性。">
+<meta name="keywords" content="git">
+<meta property="og:type" content="article">
+<meta property="og:title" content="git常用命令笔记">
+<meta property="og:url" content="http://yoursite.com/2016/12/19/git常用命令笔记/index.html">
+<meta property="og:site_name" content="Lycon&#39;s Blog">
+<meta property="og:description" content="git是Linus为了管理linux内核代码而编写的一个超强的分布式版本控制系统，一般以命令行的方式使用。若你是代码工作者，使用git可以大大提高你的工作效率和机动性。">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2020-09-10T09:29:01.629Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="git常用命令笔记">
+<meta name="twitter:description" content="git是Linus为了管理linux内核代码而编写的一个超强的分布式版本控制系统，一般以命令行的方式使用。若你是代码工作者，使用git可以大大提高你的工作效率和机动性。">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2016/12/19/git常用命令笔记/"/>
+
+
+
+
+
+  <title>git常用命令笔记 | Lycon's Blog</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+<!--<a href="https://github.com/lk361115629"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_red_aa0000.png" alt="Fork me on GitHub"></a>-->
+<a href="https://github.com/helloLycon" class="github-corner" aria-label="View source on Github"><svg width="80" height="80" viewBox="0 0 250 250" style="fill:#64CEAA; color:#fff; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Lycon's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">码农又在讨论种地用什么农具</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/12/19/git常用命令笔记/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Lycon's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">git常用命令笔记</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-12-19T16:17:59+08:00">
+                2016-12-19
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  1,989
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  8
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p><a href="https://git-scm.com/" target="_blank" rel="noopener">git</a>是<a href="https://en.wikipedia.org/wiki/Linus_Torvalds" target="_blank" rel="noopener">Linus</a>为了管理<a href="https://github.com/torvalds/linux" target="_blank" rel="noopener">linux内核代码</a>而编写的一个超强的<strong>分布式版本控制系统</strong>，一般以命令行的方式使用。若你是代码工作者，使用<a href="https://git-scm.com" target="_blank" rel="noopener">git</a>可以大大提高你的工作效率和机动性。</p>
+<a id="more"></a>
+<p>版本控制系统通俗点就是假设你的一个源码根目录现在被<a href="https://git-scm.com/" target="_blank" rel="noopener">git</a>控制了，那么你的所有源码版本（什么V1.00，V2.00，包括正在debug的版本，临时版本，发布版本）都在一个目录下面了，<a href="https://git-scm.com/" target="_blank" rel="noopener">git</a>可以轻松地<strong>切换版本</strong>，<strong>比较版本</strong>之间的差异，以及将源码给<a href="https://git-scm.com/" target="_blank" rel="noopener">git</a>服务器<strong>托管</strong>（比如无人不知的<a href="github.com">github</a>）,又或者可以利用<a href="https://git-scm.com/" target="_blank" rel="noopener">git</a>的<strong>代码合并</strong>功能进行多人协作。妈妈再也不用担心你为管理代码而烦恼了。</p>
+<blockquote>
+<p>这里只是做一些常用命令的笔记，如果要系统性地学习<a href="https://git-scm.com/" target="_blank" rel="noopener">git</a>可以参考<a href="https://www.liaoxuefeng.com/wiki/0013739516305929606dd18361248578c67b8067c8c017b000" target="_blank" rel="noopener">廖雪峰的git教程</a>。</p>
+</blockquote>
+<h2 id="准备工作"><a href="#准备工作" class="headerlink" title="准备工作"></a>准备工作</h2><h3 id="安装git"><a href="#安装git" class="headerlink" title="安装git"></a>安装git</h3><ul>
+<li>如果使用windows，到<a href="https://git-scm.com/download/win" target="_blank" rel="noopener">git官网</a>下载windows版本的git；</li>
+<li>如果使用linux，安装git没有问题。最好是安装最新版的git：<a href="https://github.com/git/git" target="_blank" rel="noopener">https://github.com/git/git</a><br>下载源码编译安装git。</li>
+</ul>
+<h3 id="配置用户"><a href="#配置用户" class="headerlink" title="配置用户"></a>配置用户</h3><p>要先配置用户信息才能正常使用：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ git config --global user.name &apos;你的靓名&apos;</span><br><span class="line">$ git config --global user.email &apos;你的邮箱&apos;</span><br></pre></td></tr></table></figure></p>
+<h3 id="配置别名"><a href="#配置别名" class="headerlink" title="配置别名"></a>配置别名</h3><p>磨刀不误砍柴工，先不急着使用git，把一些难敲的命令配置一下别名，可以用别名代替复杂命令。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ git config --global alias.st status</span><br><span class="line">$ git config --global alias.co checkout</span><br><span class="line">$ git config --global alias.lg &quot;log --graph --pretty=oneline --abbrev-commit&quot;</span><br></pre></td></tr></table></figure></p>
+<h2 id="基本使用"><a href="#基本使用" class="headerlink" title="基本使用"></a>基本使用</h2><h3 id="创建版本库"><a href="#创建版本库" class="headerlink" title="创建版本库"></a>创建版本库</h3><p>可以在非空目录下（比如源码根目录）创建git版本库：</p>
+<blockquote>
+<p>以下命令都需要在源码根目录下执行。</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git init</span><br></pre></td></tr></table></figure>
+<h3 id="查看git状态"><a href="#查看git状态" class="headerlink" title="查看git状态"></a>查看git状态</h3><p>查看git状态，有哪些文件已经发生了修改，有哪些文件已经被加入暂存区（被加入暂存区的文件才能提交）：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git st</span><br></pre></td></tr></table></figure></p>
+<h3 id="将文件加入暂存区"><a href="#将文件加入暂存区" class="headerlink" title="将文件加入暂存区"></a>将文件加入暂存区</h3><p>已经发生修改的文件（包括新增的文件和删除的文件），可以将其加入暂存区。一般就直接把整个目录加入暂存区就行了。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git add .</span><br></pre></td></tr></table></figure></p>
+<h3 id="提交版本"><a href="#提交版本" class="headerlink" title="提交版本"></a>提交版本</h3><p>将修改加入暂存区后，可以将其提交，这样就产生了一个版本：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git commit -m &apos;版本说明&apos;</span><br></pre></td></tr></table></figure></p>
+<p>版本说明一定要认真写，不然以后就不知道哪个节点是哪个版本了，还是很乱。</p>
+<h3 id="查看版本历史"><a href="#查看版本历史" class="headerlink" title="查看版本历史"></a>查看版本历史</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">$ git lg</span><br><span class="line">* 22330cc (HEAD -&gt; my-hexo-theme, origin/my-hexo-theme, origin/HEAD) add archives</span><br><span class="line">* c44db62 add some effects</span><br><span class="line">* bdca153 fix href stype</span><br><span class="line">* bebd9e3 sth. not important</span><br><span class="line">* a2ab1ab sth. not important</span><br></pre></td></tr></table></figure>
+<p><code>HEAD</code>指针指向当前工作区的版本，<code>HEAD -&gt; my-hexo-theme</code>就表示当前工作区版本为<code>my-hexo-theme</code>，这个版本的分支名为<code>my-hexo-theme</code>，版本id为<code>22330cc</code>,后面的<code>add archives</code>就是当初提交时填写的<code>版本说明</code>。</p>
+<h3 id="比较版本"><a href="#比较版本" class="headerlink" title="比较版本"></a>比较版本</h3><p>可以通过命令轻松的比较两个版本之间的差异：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git diff 较老版本 较新版本</span><br></pre></td></tr></table></figure></p>
+<p>“较老/较新版本”可以填：</p>
+<ul>
+<li>分支名</li>
+<li>版本id</li>
+<li>HEAD^，HEAD^^等等(几个<code>^</code>就是HEAD回退几个版本)<br>也可以直接简写<code>git diff</code>也就是<code>git diff HEAD 工作区</code>，就是比较当前修改和最近提交的版本。</li>
+</ul>
+<h3 id="版本切换"><a href="#版本切换" class="headerlink" title="版本切换"></a>版本切换</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git reset --hard 版本</span><br></pre></td></tr></table></figure>
+<p>同样，“版本”可以填：</p>
+<ul>
+<li>分支名</li>
+<li>版本id</li>
+<li>HEAD^，HEAD^^等等</li>
+</ul>
+<h2 id="分支管理"><a href="#分支管理" class="headerlink" title="分支管理"></a>分支管理</h2><ul>
+<li>git最强大的就是分支功能了。有了分支功能，我们可以在好几个分支上进行开发或调试（在<code>master</code>分支上进行版本发布，在<code>dev</code>分支上进行开发，若有临时需求可以在<code>dev</code>分支上创建其他分支），可以应付各样的需求。</li>
+<li>其他版本控制系统如SVN等都有分支管理，但是用过之后你会发现，这些版本控制系统创建和切换分支比蜗牛还慢，简直让人无法忍受，结果分支功能成了摆设，大家都不去用。但Git的分支是与众不同的，无论创建、切换和删除分支，Git在1秒钟之内就能完成！无论你的版本库是1个文件还是1万个文件。</li>
+</ul>
+<h3 id="查看分支"><a href="#查看分支" class="headerlink" title="查看分支"></a>查看分支</h3><p>查看<code>本地分支</code>：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git branch</span><br></pre></td></tr></table></figure></p>
+<p>查看<code>远程分支</code>(例如github)：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git branch -r</span><br></pre></td></tr></table></figure></p>
+<h3 id="创建-切换分支"><a href="#创建-切换分支" class="headerlink" title="创建+切换分支"></a>创建+切换分支</h3><p>创建分支：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git branch 分支名</span><br></pre></td></tr></table></figure></p>
+<p>创建分支后我们往往会想切换到那个分支，所有一般直接<strong>创建+切换分支</strong>：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git co -b 分支名</span><br></pre></td></tr></table></figure></p>
+<p>切换分支，也就是把HEAD指针指向某个分支：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git co 分支名</span><br></pre></td></tr></table></figure></p>
+<h3 id="合并分支"><a href="#合并分支" class="headerlink" title="合并分支"></a>合并分支</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git merge 分支名</span><br></pre></td></tr></table></figure>
+<p>这里要注意一下，合并分支时目标分支要比当前分支新，也就是说我们先<code>git co 老分支</code>再<code>git merge 新分支</code>。其实分支合并就是把老分支的指针指向新分支而已（大部分情况）。</p>
+<h3 id="删除分支"><a href="#删除分支" class="headerlink" title="删除分支"></a>删除分支</h3><p>我们把临时分支合并到主分支后，往往想要删除临时分支：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git branch -d 分支名</span><br></pre></td></tr></table></figure></p>
+<h3 id="stash功能"><a href="#stash功能" class="headerlink" title="stash功能"></a>stash功能</h3><p>当你在版本A的基础上开发一个新的功能，还无法编译使用。这时发现版本A有一个bug，要在版本A的基础上debug，这时就可以使用<code>stash</code>功能把新功能的代码给临时保存起来（直接提交一个版本也可以，但是这样就会多出一个毫无意义的版本）：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git stash</span><br></pre></td></tr></table></figure></p>
+<p>现在工作区已经没有对于版本A的修改了，创建一个<code>debug临时分支</code>：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git co -b debug</span><br></pre></td></tr></table></figure></p>
+<p>在<code>debug分支</code>上处理bug，处理完成后提交<code>debug分支</code>：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git comment -m &apos;fuck the bug&apos;</span><br></pre></td></tr></table></figure></p>
+<p>切回原来的分支，比如<code>dev分支</code>：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git co dev</span><br></pre></td></tr></table></figure></p>
+<p>把<code>stash</code>保存的现场恢复，继续开发新功能：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git stash pop</span><br></pre></td></tr></table></figure></p>
+<p>这样的话敲几个命令就能省去拷贝好几份代码的麻烦，完美。</p>
+<h2 id="使用github"><a href="#使用github" class="headerlink" title="使用github"></a>使用github</h2><h3 id="配置SSH-Key"><a href="#配置SSH-Key" class="headerlink" title="配置SSH Key"></a>配置SSH Key</h3><p>cd到主目录下，创建ssh-key：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ ssh-keygen -t rsa -C &quot;youremail@example.com&quot;</span><br></pre></td></tr></table></figure></p>
+<p>上面的<a href="mailto:youremail@example.com" target="_blank" rel="noopener">youremail@example.com</a>就是你自己的邮箱，然后一路回车，完成后应该可以在主目录下找到<code>.ssh</code>目录，里面有<code>id_rsa</code>和<code>id_rsa.pub</code>两个文件。<br>然后到你的github账号设置里，有一个<code>SSH Keys</code>的配置，把<code>id_rsa.pub</code>里面的文本添加进去就可以了。</p>
+<h3 id="克隆仓库"><a href="#克隆仓库" class="headerlink" title="克隆仓库"></a>克隆仓库</h3><p>克隆也就是下载版本库。比如你要克隆bootstrap项目的源码：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git clone https://github.com/twbs/bootstrap</span><br></pre></td></tr></table></figure></p>
+<p>比如你要克隆自己的项目：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git clone https://github.com/你的用户名/仓库名</span><br></pre></td></tr></table></figure></p>
+<p>或者<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git clone git@github.com:你的用户名/仓库名</span><br></pre></td></tr></table></figure></p>
+<h3 id="添加远程仓库"><a href="#添加远程仓库" class="headerlink" title="添加远程仓库"></a>添加远程仓库</h3><p>先用你的github账号创建一个空的仓库，并指定仓库名；<br>然后添加远程仓库：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git remote add origin git@github.com:你的用户名/仓库名</span><br></pre></td></tr></table></figure></p>
+<p><code>origin</code>是远程仓库在本地的名字，一般就是取<code>origin</code>，约定俗成。</p>
+<h3 id="推送本地仓库到远程仓库"><a href="#推送本地仓库到远程仓库" class="headerlink" title="推送本地仓库到远程仓库"></a>推送本地仓库到远程仓库</h3><p>一次推送只能推送一个分支：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git push origin 分支名</span><br></pre></td></tr></table></figure></p>
+<p>然后到你的github账号看看文件是否已经更新了。</p>
+<h3 id="拉取远程仓库到本地"><a href="#拉取远程仓库到本地" class="headerlink" title="拉取远程仓库到本地"></a>拉取远程仓库到本地</h3><p>假设你和别人共同开发一份代码，当别人<code>push</code>之后那么远程仓库就比你本地的仓库要新了，这时就需要拉取远程仓库到本地：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git pull origin 分支名</span><br></pre></td></tr></table></figure></p>
+<p>其实<code>pull</code>就是<code>fetch</code>+<code>merge</code>，将远程分支下载到本地后合并；<br>你可以选择先<code>fetch</code>看看别人写的辣鸡代码再决定是否合并，不想合并就把<code>fetch</code>过来的分支删除。</p>
+<h2 id="tips"><a href="#tips" class="headerlink" title="tips"></a>tips</h2><h3 id="修改tabwidth"><a href="#修改tabwidth" class="headerlink" title="修改tabwidth"></a>修改tabwidth</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git config --global core.pager &apos;less -x1,5&apos;</span><br></pre></td></tr></table></figure>
+<h3 id="更新到最新版git"><a href="#更新到最新版git" class="headerlink" title="更新到最新版git"></a>更新到最新版git</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">sudo add-apt-repository ppa:git-core/ppa</span><br><span class="line">sudo apt-get update</span><br><span class="line">sudo apt-get install git</span><br><span class="line">git --version</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    
+    
+    
+
+    
+
+	<div>
+	  
+		<div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">-------------本文结束<i class="fa fa-paw"></i>感谢您的阅读-------------</div>
+    
+</div>
+	  
+	</div>
+	
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/git/" rel="tag"><i class="fa fa-tag"></i> git</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/11/09/使用Hexo-Git构建Github-Blog/" rel="next" title="使用Hexo+Git构建Github-Blog">
+                <i class="fa fa-chevron-left"></i> 使用Hexo+Git构建Github-Blog
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/03/01/摸索Kali-linux无线渗透-1/" rel="prev" title="摸索Kali-linux无线渗透(1)">
+                摸索Kali-linux无线渗透(1) <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/avatar.jpg"
+                alt="" />
+            
+              <p class="site-author-name" itemprop="name"></p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">4</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/helloLycon" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i></a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:lycon123@foxmail.com" target="_blank" title="邮箱">
+                      
+                        <i class="fa fa-fw fa-envelope"></i></a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://weibo.com/lycon361" target="_blank" title="微博">
+                      
+                        <i class="fa fa-fw fa-weibo"></i></a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                Links
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://github.com/helloLycon" title="My Github [helloLycon]" target="_blank">My Github [helloLycon]</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://www.yinwang.org/" title="王垠的博客" target="_blank">王垠的博客</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#准备工作"><span class="nav-number">1.</span> <span class="nav-text">准备工作</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#安装git"><span class="nav-number">1.1.</span> <span class="nav-text">安装git</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#配置用户"><span class="nav-number">1.2.</span> <span class="nav-text">配置用户</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#配置别名"><span class="nav-number">1.3.</span> <span class="nav-text">配置别名</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#基本使用"><span class="nav-number">2.</span> <span class="nav-text">基本使用</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#创建版本库"><span class="nav-number">2.1.</span> <span class="nav-text">创建版本库</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#查看git状态"><span class="nav-number">2.2.</span> <span class="nav-text">查看git状态</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#将文件加入暂存区"><span class="nav-number">2.3.</span> <span class="nav-text">将文件加入暂存区</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#提交版本"><span class="nav-number">2.4.</span> <span class="nav-text">提交版本</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#查看版本历史"><span class="nav-number">2.5.</span> <span class="nav-text">查看版本历史</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#比较版本"><span class="nav-number">2.6.</span> <span class="nav-text">比较版本</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#版本切换"><span class="nav-number">2.7.</span> <span class="nav-text">版本切换</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#分支管理"><span class="nav-number">3.</span> <span class="nav-text">分支管理</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#查看分支"><span class="nav-number">3.1.</span> <span class="nav-text">查看分支</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#创建-切换分支"><span class="nav-number">3.2.</span> <span class="nav-text">创建+切换分支</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#合并分支"><span class="nav-number">3.3.</span> <span class="nav-text">合并分支</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#删除分支"><span class="nav-number">3.4.</span> <span class="nav-text">删除分支</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#stash功能"><span class="nav-number">3.5.</span> <span class="nav-text">stash功能</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#使用github"><span class="nav-number">4.</span> <span class="nav-text">使用github</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#配置SSH-Key"><span class="nav-number">4.1.</span> <span class="nav-text">配置SSH Key</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#克隆仓库"><span class="nav-number">4.2.</span> <span class="nav-text">克隆仓库</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#添加远程仓库"><span class="nav-number">4.3.</span> <span class="nav-text">添加远程仓库</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#推送本地仓库到远程仓库"><span class="nav-number">4.4.</span> <span class="nav-text">推送本地仓库到远程仓库</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#拉取远程仓库到本地"><span class="nav-number">4.5.</span> <span class="nav-text">拉取远程仓库到本地</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#tips"><span class="nav-number">5.</span> <span class="nav-text">tips</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#修改tabwidth"><span class="nav-number">5.1.</span> <span class="nav-text">修改tabwidth</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#更新到最新版git"><span class="nav-number">5.2.</span> <span class="nav-text">更新到最新版git</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder"></span>
+
+  
+</div>
+
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+
+
+
+<div class="theme-info">
+  <div class="powered-by"></div>
+  <span class="post-count">博客全站共9.3k字</span>
+</div>
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  <!-- 页面点击小红心 -->
+  <!--<script type="text/javascript" src="/js/src/love.js"></script>-->
+</body>
+</html>

